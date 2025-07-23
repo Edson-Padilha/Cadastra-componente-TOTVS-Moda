@@ -9,7 +9,6 @@ from PySide6.QtWidgets import (
 
 # Nomes dos arquivos de imagem salvas
 IMG_CODIGO_GRUPO = 'campo_codigo_grupo.png'
-IMG_COMPONENTE = 'campo_componente.png'
 IMG_ATUALIZAR = 'botao_atualizar.png'
 
 def run_automation(group_code, csv_path):

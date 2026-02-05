@@ -19,9 +19,9 @@ def run_automation(group_code, csv_path):
         # 1. Ler os dados do arquivo CSV usando pandas
         try:
             # Tenta ler com delimitador ; e depois com ,
-            df = pd.read_csv(csv_path, sep=';', header=None)
+            df = pd.read_csv(csv_path, sep=';', header=0)
             if df.shape[1] == 1:
-                df = pd.read_csv(csv_path, sep=',', header=None)
+                df = pd.read_csv(csv_path, sep=',', header=0)
         except Exception as e:
             QMessageBox.critical(None, "Erro", f"Não foi possível ler o arquivo CSV.\nVerifique se o delimitador é ';' ou ','\n\nErro: {e}")
             return
@@ -54,21 +54,17 @@ def run_automation(group_code, csv_path):
             print(f"Processando {index+1}/{total_rows}: Componente='{componente}', Nível='{nivel_acesso_txt}'")
 
             # Digita o componente
+            pag.press('f5')
             pag.write(componente)
+            time.sleep(0.3)
             pag.press('tab')
-            time.sleep(0.5)
 
             # Seleciona o nível de acesso
-            if nivel_acesso_txt:
-                presses = (nivel_acesso_txt)
-                for _ in range(presses):
-                    pag.press('down')
-                    time.sleep(0.1)
-            else:
-                print(f"AVISO: Nível de acesso '{nivel_acesso_txt}' não encontrado no mapa. Pulando seleção de nível.")
-            
-            pag.press('tab')
-            time.sleep(0.5)
+            press = (nivel_acesso_txt)
+                
+            pag.press('down', presses=press, interval=0.3)
+            time.sleep(0.3)
+            pag.press('enter')
 
         # 5. Clicar em "Atualizar para salvar"
         print("Procurando o botão 'Atualizar'...")
